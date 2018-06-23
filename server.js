@@ -10,7 +10,9 @@ var Article = require("./models/Article.js");
 var request = require("request");
 var cheerio = require("cheerio");
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/news_scraper";
 mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 var PORT = process.env.PORT || 8080;
 
@@ -31,8 +33,6 @@ app.set("view engine", "handlebars");
 var routes = require("./controllers/scraper_controller.js");
 
 app.use("/", routes);
-
-mongoose.connect("mongodb://localhost/");
 
 var db = mongoose.connection;
 
